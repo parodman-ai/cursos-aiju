@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA para la Productividad Ejecutiva · AIJU Formación</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#f5c500; --gold-dark:#b89400; --gold-pale:#fffbe6;
+  --ink:#1a1a1a; --ink2:#333; --ink3:#666; --ink4:#999;
+  --bg:#fafaf8; --white:#fff; --border:#e8e5dc;
+  --green:#1a7f4b; --blue:#1a4f8f; --slate:#4a5a6a;
+  --r:10px; --r-lg:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;line-height:1.7}
+
+/* HEADER */
+.site-bar{background:var(--ink);padding:10px 28px;display:flex;align-items:center;justify-content:space-between}
+.site-bar .logo{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:1px}
+.site-bar .badge{color:rgba(255,255,255,.5);font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:1.5px;text-transform:uppercase}
+
+/* HERO */
+.hero{background:var(--ink);padding:56px 28px 52px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-80px;top:-80px;width:400px;height:400px;background:var(--gold);border-radius:50%;opacity:.06;pointer-events:none}
+.hero-wrap{max-width:900px;margin:0 auto}
+.hero-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,197,0,.3);padding:4px 14px;border-radius:20px;margin-bottom:22px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.08;color:#fff;margin-bottom:10px;letter-spacing:-.5px}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,.65);margin-bottom:36px;max-width:580px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.1)}
+.stat-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--gold);line-height:1}
+.stat-lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px;letter-spacing:.5px}
+
+/* INFO BAND */
+.info-band{background:var(--gold);padding:18px 28px}
+.info-band-inner{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.info-item{display:flex;align-items:center;gap:10px}
+.info-item .icon{font-size:18px}
+.info-item strong{font-size:13px;font-weight:700;color:var(--ink);display:block}
+.info-item span{font-size:12px;color:rgba(0,0,0,.6)}
+.cta-btn{background:var(--ink);color:var(--gold);padding:12px 28px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+
+/* BODY */
+.wrap{max-width:900px;margin:0 auto;padding:0 28px}
+.section{padding:52px 0}
+.section-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:10px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,34px);font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.2}
+.section-desc{color:var(--slate);max-width:680px;font-size:15px;margin-bottom:36px}
+
+/* OBJETIVOS */
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.obj-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;gap:14px;align-items:flex-start}
+.obj-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--gold);opacity:.4;line-height:1;min-width:24px}
+.obj-text{font-size:13.5px;color:var(--ink2);line-height:1.55}
+
+/* PROGRAM */
+.program{display:flex;flex-direction:column;gap:0;position:relative}
+.program::before{content:'';position:absolute;left:22px;top:36px;bottom:36px;width:2px;background:var(--border)}
+.prog-item{display:flex;gap:22px;padding:20px 0}
+.prog-dot{width:46px;height:46px;min-width:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;z-index:1;position:relative;font-family:'Playfair Display',serif}
+.prog-dot.bloque{background:var(--ink);color:var(--gold);border:2px solid var(--gold)}
+.prog-dot.pausa{background:var(--bg);color:var(--ink4);border:2px solid var(--border)}
+.prog-dot.cierre{background:var(--green);color:#fff;border:2px solid var(--green)}
+.prog-content{}
+.prog-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold-dark);letter-spacing:1px;margin-bottom:4px}
+.prog-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.prog-items{list-style:none;padding:0}
+.prog-items li{font-size:13px;color:var(--slate);padding:3px 0;display:flex;gap:8px}
+.prog-items li::before{content:'→';color:var(--gold-dark);flex-shrink:0}
+.wow-pill{display:inline-block;background:#f3f0ff;border:1px solid #c4b5fd;color:#5b21b6;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-top:8px}
+
+/* ENTREGABLES */
+.ent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.ent-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ent-icon{font-size:26px;margin-bottom:12px}
+.ent-title{font-size:14px;font-weight:600;margin-bottom:6px;color:var(--ink)}
+.ent-desc{font-size:12px;color:var(--slate);line-height:1.5}
+
+/* PONENTE */
+.ponente-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:32px;display:flex;gap:24px;align-items:flex-start}
+.ponente-avatar{width:64px;height:64px;min-width:64px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--gold)}
+.ponente-name{font-size:18px;font-weight:700;margin-bottom:4px;color:var(--ink)}
+.ponente-role{font-size:13px;color:var(--gold-dark);font-weight:600;margin-bottom:10px}
+.ponente-bio{font-size:14px;color:var(--slate);line-height:1.6}
+
+/* PRECIO */
+.price-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:520px){.price-wrap{grid-template-columns:1fr}}
+.price-card{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.price-head{padding:16px 22px;background:var(--ink)}
+.price-head h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff}
+.price-head p{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px}
+.price-body{background:var(--white);padding:22px}
+.price-num{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--gold);line-height:1;margin-bottom:14px}
+.price-feat{list-style:none;padding:0}
+.price-feat li{font-size:13px;color:var(--slate);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px}
+.price-feat li:last-child{border-bottom:none}
+.price-feat li::before{content:'✓';color:var(--green);font-weight:700}
+.bonus-note{background:var(--gold-pale);border:1px solid rgba(245,197,0,.4);border-radius:8px;padding:12px 16px;font-size:12.5px;color:var(--ink2);margin-top:16px}
+
+/* INFO-EXTRA */
+.info-extra{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px}
+.info-extra h4{font-size:14px;font-weight:600;margin-bottom:10px;color:var(--ink)}
+.info-row{display:flex;gap:10px;font-size:13px;color:var(--slate);padding:5px 0;align-items:flex-start}
+.info-row .label{font-weight:600;color:var(--ink);min-width:80px}
+
+/* FOOTER */
+.footer{background:var(--ink);padding:32px 28px;text-align:center}
+.footer p{color:rgba(255,255,255,.4);font-size:12px}
+.footer strong{color:rgba(255,255,255,.7)}
+
+hr.sep{border:none;border-top:1px solid var(--border)}
+@media(max-width:600px){.hero{padding:36px 20px}.info-band-inner{flex-direction:column;gap:14px}.section{padding:36px 0}.ponente-card{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<div class="site-bar">
+  <div class="logo">AIJU · Formación</div>
+  <div class="badge">FORMACIÓN PARCIALMENTE BONIFICABLE</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-wrap">
+    <div class="hero-tag">Propuesta A · Directivos · 4 horas</div>
+    <h1>IA para la<br><em>Productividad Ejecutiva</em></h1>
+    <p class="hero-sub">Del Prompt al Proceso — Herramientas reales, resultados desde el primer día.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">4h</div>
+        <div class="stat-lbl">Sesión intensiva</div>
+      </div>
+      <div>
+        <div class="stat-num">12</div>
+        <div class="stat-lbl">Plazas máximas</div>
+      </div>
+      <div>
+        <div class="stat-num">0€</div>
+        <div class="stat-lbl">Coste herramientas</div>
+      </div>
+      <div>
+        <div class="stat-num">+2h</div>
+        <div class="stat-lbl">Ahorro diario estimado</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INFO BAND -->
+<div class="info-band">
+  <div class="info-band-inner">
+    <div class="info-item">
+      <span class="icon">📅</span>
+      <div><strong>04 de junio de 2026</strong><span>Jueves · 15:30 a 19:00 h.</span></div>
+    </div>
+    <div class="info-item">
+      <span class="icon">📍</span>
+      <div><strong>AIJU · Ibi (Alicante)</strong><span>Av. de la Industria 23 · 03440</span></div>
+    </div>
+    <div class="info-item">
+      <span class="icon">👥</span>
+      <div><strong>Máx. 12 participantes</strong><span>Plazas limitadas</span></div>
+    </div>
+    <a href="mailto:formacion@aiju.es" class="cta-btn">INSCRÍBETE →</a>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="wrap">
+
+  <!-- PARA QUIÉN -->
+  <div class="section">
+    <div class="section-lbl">¿Para quién es este curso?</div>
+    <div class="section-title">Diseñado para directivos que ya conocen la IA y quieren que trabaje para ellos.</div>
+    <div class="section-desc">Dirigido a directivos, responsables de área y mandos intermedios con conocimientos básicos de IA generativa (ChatGPT, Claude o similar). No es un curso de iniciación — es el siguiente paso: pasar de usar la IA puntualmente a integrarla en el flujo de trabajo diario.</div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- OBJETIVOS -->
+  <div class="section">
+    <div class="section-lbl">Objetivos</div>
+    <div class="section-title">Al terminar, cada participante sabe hacer esto.</div>
+    <div class="obj-grid">
+      <div class="obj-card"><div class="obj-num">1</div><div class="obj-text">Dominar el prompt avanzado con la fórmula ROL + CONTEXTO + TAREA + FORMATO</div></div>
+      <div class="obj-card"><div class="obj-num">2</div><div class="obj-text">Usar ChatGPT y Claude como asistentes ejecutivos de alto rendimiento</div></div>
+      <div class="obj-card"><div class="obj-num">3</div><div class="obj-text">Analizar contratos, informes y normativas con NotebookLM en minutos</div></div>
+      <div class="obj-card"><div class="obj-num">4</div><div class="obj-text">Construir un Prompt Pack propio y una hoja de ruta de productividad con IA</div></div>
+      <div class="obj-card"><div class="obj-num">5</div><div class="obj-text">Aplicar la IA a situaciones reales de empresa desde el mismo día del curso</div></div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- PROGRAMA -->
+  <div class="section">
+    <div class="section-lbl">Contenido · Programa</div>
+    <div class="section-title">4 horas intensivas. Todo práctico.</div>
+    <div class="section-desc">Formación presencial 100% hands-on. Portátil obligatorio. Cada ejercicio usa situaciones reales del participante.</div>
+
+    <div class="program">
+      <div class="prog-item">
+        <div class="prog-dot bloque">1</div>
+        <div class="prog-content">
+          <div class="prog-time">15:30–17:05 · 95 minutos</div>
+          <div class="prog-title">El Copiloto Ejecutivo: ChatGPT &amp; Claude</div>
+          <ul class="prog-items">
+            <li>Del prompt básico al prompt con estructura profesional</li>
+            <li>Fórmula ROL + CONTEXTO + TAREA + FORMATO: cómo y cuándo aplicarla</li>
+            <li>Cadenas de prompts: una conversación = un flujo de trabajo completo</li>
+            <li>Emails difíciles, guiones de reunión y propuestas comerciales en minutos</li>
+            <li>Adaptar el tono: asertivo, empático, formal, urgente</li>
+          </ul>
+          <div class="wow-pill">⚡ EJERCICIO: tu email pendiente real → resultado en 90 segundos</div>
+        </div>
+      </div>
+
+      <div class="prog-item">
+        <div class="prog-dot pausa">☕</div>
+        <div class="prog-content">
+          <div class="prog-time">17:05–17:15 · Pausa</div>
+          <div class="prog-title" style="color:var(--ink4);font-style:italic;font-size:13px">Descanso de 10 minutos</div>
+        </div>
+      </div>
+
+      <div class="prog-item">
+        <div class="prog-dot bloque">2</div>
+        <div class="prog-content">
+          <div class="prog-time">17:15–18:45 · 90 minutos</div>
+          <div class="prog-title">Análisis Documental con NotebookLM</div>
+          <ul class="prog-items">
+            <li>Crear tu base de conocimiento privada desde cualquier documento</li>
+            <li>Interrogar contratos, normativas e informes en lenguaje natural</li>
+            <li>Extraer cláusulas, fechas y puntos de riesgo en minutos</li>
+            <li>Generar notas ejecutivas exportables a Google Docs</li>
+            <li>Demo en vivo: contrato de 60 páginas analizado en 2 minutos</li>
+          </ul>
+          <div class="wow-pill">⚡ EJERCICIO: carga tu propio documento y haz tus preguntas</div>
+        </div>
+      </div>
+
+      <div class="prog-item">
+        <div class="prog-dot cierre">✓</div>
+        <div class="prog-content">
+          <div class="prog-time">18:45–19:30 · 45 minutos</div>
+          <div class="prog-title">Entregables y próximos pasos</div>
+          <ul class="prog-items">
+            <li>Distribución del Prompt Pack Ejecutivo (30+ prompts listos)</li>
+            <li>Generación con IA de la hoja de ruta personal de 30 días</li>
+            <li>Q&amp;A y cierre</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- ENTREGABLES -->
+  <div class="section">
+    <div class="section-lbl">Qué te llevas</div>
+    <div class="section-title">No teoría. Herramientas activas.</div>
+    <div class="ent-grid">
+      <div class="ent-card">
+        <div class="ent-icon">📋</div>
+        <div class="ent-title">Prompt Pack Ejecutivo</div>
+        <div class="ent-desc">30+ prompts probados para emails, reuniones, propuestas y análisis. Listos para usar desde mañana.</div>
+      </div>
+      <div class="ent-card">
+        <div class="ent-icon">📚</div>
+        <div class="ent-title">NotebookLM activo</div>
+        <div class="ent-desc">Base documental configurada con documentos reales. Funciona desde el día del curso.</div>
+      </div>
+      <div class="ent-card">
+        <div class="ent-icon">🗺️</div>
+        <div class="ent-title">Hoja de ruta 30 días</div>
+        <div class="ent-desc">10 acciones concretas generadas con IA para las próximas semanas. Personalizada para tu cargo y sector.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- PONENTE -->
+  <div class="section">
+    <div class="section-lbl">Ponente</div>
+    <div class="ponente-card">
+      <div class="ponente-avatar">PR</div>
+      <div>
+        <div class="ponente-name">Pablo Rodríguez</div>
+        <div class="ponente-role">Director · Agilytics</div>
+        <div class="ponente-bio">Director de Agilytics, consultoría especializada en mejora de procesos y Business Agility desde 2019. Lleva desde 2024 implantando automatizaciones de Inteligencia Artificial en empresas de diversos sectores, combinando visión directiva con implementación práctica de herramientas de IA generativa y automatización de procesos.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- PRECIO E INSCRIPCIÓN -->
+  <div class="section">
+    <div class="section-lbl">Precio e inscripción</div>
+    <div class="section-title">Formación parcialmente bonificable.</div>
+    <div class="price-wrap">
+      <div class="price-card">
+        <div class="price-head"><h3>Socios AIJU</h3><p>Precio especial para asociados</p></div>
+        <div class="price-body">
+          <div class="price-num">150€</div>
+          <ul class="price-feat">
+            <li>3,5 horas presenciales</li>
+            <li>Máx. 12 participantes</li>
+            <li>Portátil obligatorio</li>
+            <li>Herramientas: gratuitas (solo cuenta Google)</li>
+            <li>Material digital incluido</li>
+            <li>Bonificable FUNDAE</li>
+          </ul>
+        </div>
+      </div>
+      <div class="price-card">
+        <div class="price-head"><h3>No socios</h3><p>Empresas no asociadas a AIJU</p></div>
+        <div class="price-body">
+          <div class="price-num">180€</div>
+          <ul class="price-feat">
+            <li>3,5 horas presenciales</li>
+            <li>Máx. 12 participantes</li>
+            <li>Portátil obligatorio</li>
+            <li>Herramientas: gratuitas (solo cuenta Google)</li>
+            <li>Material digital incluido</li>
+            <li>Bonificable FUNDAE</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="bonus-note">💡 La gestión de la bonificación FUNDAE para empresas no asociadas a AIJU conlleva un incremento de 30€. Descuento del 10% a partir de la 2ª inscripción de la misma empresa.</div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- CONTACTO -->
+  <div class="section">
+    <div class="section-lbl">Contacto e inscripción</div>
+    <div class="section-title">¿Tienes dudas o quieres inscribirte?</div>
+    <div class="info-extra">
+      <h4>AIJU – Instituto Tecnológico de Producto Infantil y de Ocio</h4>
+      <div class="info-row"><span class="label">📍 Lugar:</span><span>Av. de la Industria 23 · 03440 Ibi (Alicante)</span></div>
+      <div class="info-row"><span class="label">📞 Teléfono:</span><span>+34 96 555 44 75</span></div>
+      <div class="info-row"><span class="label">✉️ Email:</span><span><a href="mailto:formacion@aiju.es" style="color:var(--blue)">formacion@aiju.es</a></span></div>
+      <div class="info-row"><span class="label">🌐 Web:</span><span><a href="https://formacionaiju.es" style="color:var(--blue)" target="_blank">formacionaiju.es</a></span></div>
+      <div class="info-row"><span class="label">⚠️ Aviso:</span><span>Solo se admitirán cancelaciones con derecho a devolución si se comunican con al menos 5 días de antelación. AIJU se reserva el derecho a anular o aplazar el curso si no se alcanza el mínimo de inscripciones.</span></div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <p><strong>AIJU · Instituto Tecnológico de Producto Infantil y de Ocio</strong></p>
+  <p style="margin-top:6px">Av. de la Industria 23 · 03440 Ibi (Alicante) · formacion@aiju.es · +34 96 555 44 75</p>
+  <p style="margin-top:6px">Formación parcialmente bonificable por FUNDAE</p>
+</div>
+
+</body>
+</html>
