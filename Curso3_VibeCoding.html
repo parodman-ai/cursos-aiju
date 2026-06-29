@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VibeCoding: Crea Aplicaciones con IA · AIJU Formación · Agilytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --purple:#6c3fc5; --purple2:#8b5cf6; --purple-pale:#f3f0ff;
+  --ink:#110a1e; --ink2:#2a1d3e; --ink3:#4a3a5e;
+  --bg:#f7f5fc; --white:#fff; --border:#ddd6f0;
+  --green:#1a7f4b; --gold:#f5c500; --gold-dark:#b89400;
+  --slate:#5a506a; --blue:#1a4f8f;
+  --r:10px; --r-lg:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;line-height:1.7}
+
+.site-bar{background:var(--ink);padding:10px 28px;display:flex;align-items:center;justify-content:space-between}
+.site-bar .logo{color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:1px}
+.site-bar .badge{color:rgba(255,255,255,.5);font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:1.5px;text-transform:uppercase}
+
+.hero{background:linear-gradient(140deg,#0e0518 0%,#1a0d2e 60%,#0e1a2e 100%);padding:56px 28px 52px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-100px;top:-100px;width:450px;height:450px;background:var(--purple);border-radius:50%;opacity:.08;pointer-events:none}
+.hero::after{content:'';position:absolute;left:-60px;bottom:-80px;width:300px;height:300px;background:#3b82f6;border-radius:50%;opacity:.05;pointer-events:none}
+.hero-wrap{max-width:900px;margin:0 auto;position:relative;z-index:1}
+.hero-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple2);border:1px solid rgba(139,92,246,.3);padding:4px 14px;border-radius:20px;margin-bottom:22px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,60px);font-weight:900;line-height:1.05;color:#fff;margin-bottom:10px}
+.hero h1 em{font-style:italic;color:var(--purple2)}
+.hero-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,.6);margin-bottom:32px;max-width:600px}
+.hero-code{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(139,92,246,.8);background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:8px;padding:12px 16px;margin-bottom:32px;display:inline-block}
+.hero-stats{display:flex;flex-wrap:wrap;gap:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.1)}
+.stat-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--purple2);line-height:1}
+.stat-lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px;letter-spacing:.5px}
+
+.info-band{background:var(--purple);padding:18px 28px}
+.info-band-inner{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.info-item{display:flex;align-items:center;gap:10px}
+.info-item .icon{font-size:18px}
+.info-item strong{font-size:13px;font-weight:700;color:#fff;display:block}
+.info-item span{font-size:12px;color:rgba(255,255,255,.7)}
+.cta-btn{background:var(--ink);color:var(--purple2);padding:12px 28px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+
+.wrap{max-width:900px;margin:0 auto;padding:0 28px}
+.section{padding:52px 0}
+.section-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,34px);font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.2}
+.section-desc{color:var(--slate);max-width:700px;font-size:15px;margin-bottom:36px}
+.reqs-note{background:#fffbe6;border:1px solid rgba(245,197,0,.4);border-radius:8px;padding:14px 18px;font-size:13px;color:var(--ink2);margin-bottom:24px}
+.reqs-note strong{color:var(--gold-dark)}
+
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.obj-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;gap:14px;align-items:flex-start}
+.obj-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--purple);opacity:.3;line-height:1;min-width:24px}
+.obj-text{font-size:13.5px;color:var(--ink2);line-height:1.55}
+
+.what-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:28px}
+.what-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:18px}
+.what-icon{font-size:22px;margin-bottom:8px}
+.what-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.what-desc{font-size:12px;color:var(--slate)}
+
+.sessions-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:640px){.sessions-grid{grid-template-columns:1fr}}
+.session-card{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border)}
+.sess-head{padding:20px 22px;background:var(--ink)}
+.sess-head .s-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--purple2);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.sess-head .s-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:4px}
+.sess-head .s-date{font-size:12px;color:rgba(255,255,255,.5)}
+.sess-body{background:var(--white);padding:20px 22px}
+.prog-lbl{font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.5px;margin:16px 0 5px;text-transform:uppercase}
+.prog-lbl:first-child{margin-top:0}
+ul.prog-items{list-style:none;padding:0}
+ul.prog-items li{font-size:12.5px;color:var(--slate);padding:3px 0;display:flex;gap:7px}
+ul.prog-items li::before{content:'→';color:var(--purple);flex-shrink:0;font-size:11px;margin-top:2px}
+.wow-pill{display:inline-block;background:#fef9e7;border:1px solid rgba(245,197,0,.4);color:var(--gold-dark);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-top:8px}
+.tool-pill{display:inline-block;background:var(--purple-pale);border:1px solid rgba(139,92,246,.25);color:var(--purple);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin:4px 4px 0 0}
+.sess-wow{background:var(--purple-pale);border-top:2px solid var(--purple);padding:12px 22px;font-size:12px;color:var(--ink2)}
+.sess-wow strong{color:var(--purple);display:block;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+
+.app-showcase{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:28px}
+.app-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px}
+.app-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple);margin-bottom:8px}
+.app-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.app-desc{font-size:12px;color:var(--slate);line-height:1.5}
+.app-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--purple2);margin-top:10px;background:var(--purple-pale);padding:3px 8px;border-radius:4px;display:inline-block}
+
+.ent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.ent-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ent-icon{font-size:26px;margin-bottom:12px}
+.ent-title{font-size:14px;font-weight:600;margin-bottom:6px;color:var(--ink)}
+.ent-desc{font-size:12px;color:var(--slate);line-height:1.5}
+
+.ponente-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:32px;display:flex;gap:24px;align-items:flex-start}
+.ponente-avatar{width:64px;height:64px;min-width:64px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--purple2)}
+.ponente-name{font-size:18px;font-weight:700;margin-bottom:4px;color:var(--ink)}
+.ponente-role{font-size:13px;color:var(--purple);font-weight:600;margin-bottom:10px}
+.ponente-bio{font-size:14px;color:var(--slate);line-height:1.6}
+
+.price-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:520px){.price-wrap{grid-template-columns:1fr}}
+.price-card{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.price-head{padding:16px 22px;background:var(--ink)}
+.price-head h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff}
+.price-head p{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px}
+.price-body{background:var(--white);padding:22px}
+.price-num{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--purple);line-height:1;margin-bottom:14px}
+.price-feat{list-style:none;padding:0}
+.price-feat li{font-size:13px;color:var(--slate);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px}
+.price-feat li:last-child{border-bottom:none}
+.price-feat li::before{content:'✓';color:var(--green);font-weight:700}
+.bonus-note{background:var(--purple-pale);border:1px solid rgba(139,92,246,.2);border-radius:8px;padding:12px 16px;font-size:12.5px;color:var(--ink2);margin-top:16px}
+.path-note{background:#f0f7ff;border:1px solid rgba(26,79,143,.2);border-radius:8px;padding:14px 18px;font-size:13px;color:var(--ink2);margin-top:14px}
+.path-note strong{color:var(--blue)}
+
+.info-extra{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px}
+.info-extra h4{font-size:14px;font-weight:600;margin-bottom:10px;color:var(--ink)}
+.info-row{display:flex;gap:10px;font-size:13px;color:var(--slate);padding:5px 0;align-items:flex-start}
+.info-row .label{font-weight:600;color:var(--ink);min-width:80px}
+
+.footer{background:var(--ink);padding:32px 28px;text-align:center}
+.footer p{color:rgba(255,255,255,.4);font-size:12px}
+.footer strong{color:rgba(255,255,255,.7)}
+.footer .agilytics{color:var(--purple2);font-weight:700}
+
+hr.sep{border:none;border-top:1px solid var(--border)}
+@media(max-width:600px){.hero{padding:36px 20px}.info-band-inner{flex-direction:column;gap:14px}.section{padding:36px 0}.ponente-card{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<div class="site-bar">
+  <div class="logo">AIJU · Formación · Agilytics</div>
+  <div class="badge">Formación Bonificable FUNDAE</div>
+</div>
+
+<div class="hero">
+  <div class="hero-wrap">
+    <div class="hero-tag">Curso 3 · Nivel Avanzado · 8 horas · 2 sesiones</div>
+    <h1>VibeCoding:<br><em>Crea Aplicaciones</em><br>con IA</h1>
+    <p class="hero-sub">Sin saber programar, pero con Claude Code y CoWork. Diseña, construye y despliega una aplicación real en un día.</p>
+    <div class="hero-code">// Tú describes. Claude Code construye. CoWork coordina. Tú revisas y apruebas.</div>
+    <div class="hero-stats">
+      <div><div class="stat-num">8h</div><div class="stat-lbl">2 sesiones</div></div>
+      <div><div class="stat-num">12</div><div class="stat-lbl">Plazas máximas</div></div>
+      <div><div class="stat-num">1</div><div class="stat-lbl">App real que te llevas</div></div>
+      <div><div class="stat-num">0</div><div class="stat-lbl">Líneas de código manual</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="info-band">
+  <div class="info-band-inner">
+    <div class="info-item">
+      <span class="icon">📅</span>
+      <div><strong>Próxima edición: consultar</strong><span>Jornada completa · 9:00 a 19:00 h.</span></div>
+    </div>
+    <div class="info-item">
+      <span class="icon">📍</span>
+      <div><strong>AIJU · Ibi (Alicante)</strong><span>Av. de la Industria 23 · 03440</span></div>
+    </div>
+    <div class="info-item">
+      <span class="icon">💻</span>
+      <div><strong>Portátil obligatorio</strong><span>VS Code instalado previamente</span></div>
+    </div>
+    <a href="mailto:formacion@aiju.es" class="cta-btn">INSCRÍBETE →</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="section-lbl">¿Qué es el VibeCoding?</div>
+    <div class="section-title">Programar sin saber programar. Crear sin código.</div>
+    <p class="section-desc">El VibeCoding es la nueva forma de construir aplicaciones: describes en lenguaje natural lo que quieres, y la IA escribe, revisa y mejora el código por ti. Tú diseñas la lógica, decides las funcionalidades, y validas el resultado. Claude Code es el asistente de programación más avanzado del mercado para este flujo. CoWork coordina el proyecto. Tú eres el director, no el programador.</p>
+    <div class="what-grid">
+      <div class="what-card">
+        <div class="what-icon">🤖</div>
+        <div class="what-title">Claude Code</div>
+        <div class="what-desc">El asistente de programación de Anthropic integrado en VS Code. Escribe, refactoriza y depura código por ti.</div>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">⚡</div>
+        <div class="what-title">CoWork</div>
+        <div class="what-desc">Coordina el proyecto, genera documentación, prueba funcionalidades y gestiona los pasos del desarrollo.</div>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">🛠️</div>
+        <div class="what-title">VS Code</div>
+        <div class="what-desc">El entorno de desarrollo estándar, gratuito y ampliamente utilizado. Claude Code vive dentro de él.</div>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">🚀</div>
+        <div class="what-title">Tú, el Director</div>
+        <div class="what-desc">Tu rol es definir, revisar y validar. La IA escribe el código. Tú decides qué se construye y por qué.</div>
+      </div>
+    </div>
+    <div class="reqs-note">⚠️ <strong>Nivel requerido:</strong> Es necesario haber completado el Curso 2 — IA para Directivos: Automatización sin Código — o tener experiencia equivalente en el uso de Claude y automatizaciones. No se requiere experiencia en programación.</div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="section">
+    <div class="section-lbl">Objetivos</div>
+    <div class="section-title">Al terminar, habrás construido una aplicación real.</div>
+    <div class="obj-grid">
+      <div class="obj-card"><div class="obj-num">1</div><div class="obj-text">Instalar y configurar Claude Code en VS Code y entender su flujo de trabajo</div></div>
+      <div class="obj-card"><div class="obj-num">2</div><div class="obj-text">Describir una aplicación en lenguaje natural y convertirla en código funcional</div></div>
+      <div class="obj-card"><div class="obj-num">3</div><div class="obj-text">Usar CoWork para coordinar el desarrollo, revisar cambios y gestionar versiones</div></div>
+      <div class="obj-card"><div class="obj-num">4</div><div class="obj-text">Depurar errores y mejorar funcionalidades sin tocar el código manualmente</div></div>
+      <div class="obj-card"><div class="obj-num">5</div><div class="obj-text">Desplegar una aplicación web sencilla y funcional accesible desde el navegador</div></div>
+      <div class="obj-card"><div class="obj-num">6</div><div class="obj-text">Entender los límites del VibeCoding y cuándo necesitas apoyo técnico externo</div></div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="section">
+    <div class="section-lbl">Ejemplos de aplicaciones que se pueden construir</div>
+    <div class="section-title">Aplicaciones reales en un día.</div>
+    <p class="section-desc">Estos son ejemplos del tipo de herramientas que los participantes han construido o podrán construir en el curso. Cada participante trabaja sobre su propio caso de uso.</p>
+    <div class="app-showcase">
+      <div class="app-card">
+        <div class="app-tag">Ejemplo</div>
+        <div class="app-title">Analizador de competencia</div>
+        <div class="app-desc">Introduce el nombre de tu empresa y tus competidores. Genera automáticamente un informe de posicionamiento con comparativa de precios, mensajes clave y puntos débiles.</div>
+        <div class="app-time">Construcción estimada: 90 min</div>
+      </div>
+      <div class="app-card">
+        <div class="app-tag">Ejemplo</div>
+        <div class="app-title">Generador de propuestas comerciales</div>
+        <div class="app-desc">Formulario interno que recoge los datos del cliente y proyecto. Genera automáticamente una propuesta comercial en PDF con el tono y estructura de tu empresa.</div>
+        <div class="app-time">Construcción estimada: 2 h</div>
+      </div>
+      <div class="app-card">
+        <div class="app-tag">Ejemplo</div>
+        <div class="app-title">Dashboard de seguimiento de proyectos</div>
+        <div class="app-desc">Panel visual que lee datos de una hoja de cálculo y muestra el estado de los proyectos activos con alertas automáticas por retrasos o desviaciones.</div>
+        <div class="app-time">Construcción estimada: 2.5 h</div>
+      </div>
+      <div class="app-card">
+        <div class="app-tag">Ejemplo</div>
+        <div class="app-title">Clasificador de emails de soporte</div>
+        <div class="app-desc">Herramienta que procesa los emails de un buzón de soporte, los clasifica por tipo e urgencia, y genera una respuesta sugerida para cada uno.</div>
+        <div class="app-time">Construcción estimada: 2 h</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="section">
+    <div class="section-lbl">Programa · 2 sesiones de 4 horas</div>
+    <div class="section-title">Mañana: entorno y primeros pasos. Tarde: construye tu app.</div>
+    <p class="section-desc">El curso sigue un proyecto real de principio a fin. Por la mañana aprendes el entorno y la metodología. Por la tarde aplicas todo para construir y desplegar tu propia aplicación. Saldrás con algo funcionando.</p>
+
+    <div class="sessions-grid">
+
+      <div class="session-card">
+        <div class="sess-head">
+          <div class="s-tag">Sesión 1 · 9:00–13:00 h.</div>
+          <div class="s-title">Entorno, Metodología y Primer Prototipo</div>
+          <div class="s-date">Mañana · 4 horas</div>
+        </div>
+        <div class="sess-body">
+          <div class="prog-lbl">Preparación del entorno</div>
+          <ul class="prog-items">
+            <li>Instalación de VS Code y Claude Code (si no está hecho previamente)</li>
+            <li>Estructura de un proyecto: carpetas, archivos y cómo se organiza el código</li>
+            <li>Primer contacto: pedirle a Claude Code que explique un archivo existente</li>
+            <li>Cómo dar instrucciones efectivas a Claude Code: claridad, contexto, ejemplos</li>
+          </ul>
+          <div class="prog-lbl">La metodología VibeCoding</div>
+          <ul class="prog-items">
+            <li>Diseño previo en lenguaje natural: el briefing que define todo lo que se va a construir</li>
+            <li>Ciclo de trabajo: describe → revisa → aprueba → itera</li>
+            <li>Cómo usar CoWork para coordinar tareas, revisar código y gestionar el progreso</li>
+            <li>Git básico con IA: guardar versiones y recuperar cambios sin perder trabajo</li>
+          </ul>
+          <div class="prog-lbl">Construir el primer prototipo</div>
+          <ul class="prog-items">
+            <li>Cada participante describe su aplicación en 1 página de requisitos</li>
+            <li>Claude Code genera la estructura inicial del proyecto</li>
+            <li>Primera versión visible en el navegador en menos de 30 minutos</li>
+            <li>Añadir funcionalidades: formularios, botones, lógica básica</li>
+          </ul>
+          <div class="wow-pill">⚡ EJERCICIO: tu primera aplicación visible en el navegador antes de comer</div>
+          <div style="margin-top:8px">
+            <span class="tool-pill">🤖 Claude Code</span>
+            <span class="tool-pill">⚡ CoWork</span>
+            <span class="tool-pill">🛠️ VS Code</span>
+          </div>
+        </div>
+        <div class="sess-wow">
+          <strong>Momento WOW</strong>
+          El participante describe su aplicación en lenguaje natural. Claude Code genera el código. En menos de 20 minutos, hay una pantalla real funcionando en el navegador. «No he escrito ni una línea de código y esto ya funciona.»
+        </div>
+      </div>
+
+      <div class="session-card">
+        <div class="sess-head">
+          <div class="s-tag">Sesión 2 · 15:00–19:00 h.</div>
+          <div class="s-title">Construye, Mejora y Despliega tu Aplicación</div>
+          <div class="s-date">Tarde · 4 horas</div>
+        </div>
+        <div class="sess-body">
+          <div class="prog-lbl">Completar la aplicación</div>
+          <ul class="prog-items">
+            <li>Continuar desde el prototipo de la mañana: añadir funcionalidades pendientes</li>
+            <li>Integrar Claude o la API de IA en la aplicación para análisis o generación de texto</li>
+            <li>Depurar errores con Claude Code: describe el problema, Claude lo resuelve</li>
+            <li>Mejorar el diseño visual sin tocar el CSS manualmente</li>
+          </ul>
+          <div class="prog-lbl">CoWork como coordinador de proyecto</div>
+          <ul class="prog-items">
+            <li>Gestión del avance: qué está hecho, qué falta, qué hay que priorizar</li>
+            <li>Generar documentación automática de la aplicación para el equipo</li>
+            <li>Revisión de código: CoWork como auditor que detecta problemas antes de desplegar</li>
+          </ul>
+          <div class="prog-lbl">Despliegue y entrega</div>
+          <ul class="prog-items">
+            <li>Publicar la aplicación en la web (Vercel o similar, gratuito y sin configuración)</li>
+            <li>Compartir el enlace con el equipo desde el mismo día</li>
+            <li>Cómo mantener y mejorar la aplicación después del curso</li>
+            <li>Cuándo escalar: límites del VibeCoding y cuándo necesitas un desarrollador</li>
+          </ul>
+          <div class="prog-lbl">Cierre y siguientes pasos</div>
+          <ul class="prog-items">
+            <li>Presentación rápida de cada aplicación construida (2 min por participante)</li>
+            <li>Recursos para seguir aprendiendo y construyendo en solitario</li>
+            <li>Plan de acción: qué construirás en las próximas 4 semanas</li>
+          </ul>
+          <div class="wow-pill">⚡ EJERCICIO: tu aplicación publicada y accesible desde cualquier dispositivo</div>
+          <div style="margin-top:8px">
+            <span class="tool-pill">🤖 Claude Code</span>
+            <span class="tool-pill">⚡ CoWork</span>
+            <span class="tool-pill">🚀 Vercel</span>
+          </div>
+        </div>
+        <div class="sess-wow">
+          <strong>Momento WOW</strong>
+          El participante copia el enlace de su aplicación y lo abre en el móvil. Funciona. Lo comparte con el grupo por WhatsApp. «He construido algo real en un día. Sin saber programar. Y lo tengo publicado en internet.»
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="section">
+    <div class="section-lbl">Qué te llevas</div>
+    <div class="section-title">Una aplicación funcionando. Tuya. Publicada.</div>
+    <div class="ent-grid">
+      <div class="ent-card">
+        <div class="ent-icon">🚀</div>
+        <div class="ent-title">Tu aplicación publicada</div>
+        <div class="ent-desc">Una aplicación web real, funcional y accesible desde cualquier dispositivo. Construida sobre tu caso de uso real.</div>
+      </div>
+      <div class="ent-card">
+        <div class="ent-icon">📁</div>
+        <div class="ent-title">Código documentado</div>
+        <div class="ent-desc">El código fuente de tu aplicación con documentación generada automáticamente. Lista para mejorar o entregar a un técnico.</div>
+      </div>
+      <div class="ent-card">
+        <div class="ent-icon">🛠️</div>
+        <div class="ent-title">Entorno configurado</div>
+        <div class="ent-desc">VS Code + Claude Code + CoWork listos para construir el siguiente proyecto en solitario desde el día siguiente.</div>
+      </div>
+      <div class="ent-card">
+        <div class="ent-icon">📋</div>
+        <div class="ent-title">Plantilla de briefing</div>
+        <div class="ent-desc">Documento para describir aplicaciones de forma que Claude Code las pueda construir sin ambigüedades. Reutilizable en cualquier proyecto.</div>
+      </div>
+      <div class="ent-card">
+        <div class="ent-icon">🎓</div>
+        <div class="ent-title">Soporte post-formación</div>
+        <div class="ent-desc">Canal de consultas durante 30 días para resolver dudas al seguir construyendo. Más tiempo de soporte que en los cursos anteriores, porque los proyectos son más complejos.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="section">
+    <div class="section-lbl">Ponente</div>
+    <div class="ponente-card">
+      <div class="ponente-avatar">PR</div>
+      <div>
+        <div class="ponente-name">Pablo Rodríguez</div>
+        <div class="ponente-role">Director · Agilytics</div>
+        <div class="ponente-bio">Director de Agilytics, consultoría especializada en mejora de procesos y Business Agility desde 2019. Especialista en el uso de Claude Code y CoWork para construir aplicaciones sin programación tradicional. Ha acompañado a equipos no técnicos a pasar de la idea al prototipo funcional en una sola jornada. Combina la visión de producto con la experiencia práctica de quien ha construido decenas de herramientas internas con IA.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="section">
+    <div class="section-lbl">Precio e inscripción</div>
+    <div class="section-title">Formación parcialmente bonificable por FUNDAE.</div>
+    <div class="price-wrap">
+      <div class="price-card">
+        <div class="price-head"><h3>Socios AIJU</h3><p>Precio especial para asociados</p></div>
+        <div class="price-body">
+          <div class="price-num">420€</div>
+          <ul class="price-feat">
+            <li>2 sesiones presenciales de 4h (jornada completa)</li>
+            <li>Máx. 12 participantes</li>
+            <li>Portátil obligatorio + VS Code instalado</li>
+            <li>Soporte email 30 días post-formación</li>
+            <li>Acceso a repositorio de plantillas y ejemplos</li>
+            <li>Bonificable FUNDAE</li>
+          </ul>
+        </div>
+      </div>
+      <div class="price-card">
+        <div class="price-head"><h3>No socios</h3><p>Empresas no asociadas a AIJU</p></div>
+        <div class="price-body">
+          <div class="price-num">490€</div>
+          <ul class="price-feat">
+            <li>2 sesiones presenciales de 4h (jornada completa)</li>
+            <li>Máx. 12 participantes</li>
+            <li>Portátil obligatorio + VS Code instalado</li>
+            <li>Soporte email 30 días post-formación</li>
+            <li>Acceso a repositorio de plantillas y ejemplos</li>
+            <li>Bonificable FUNDAE</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="bonus-note">💡 La gestión de la bonificación FUNDAE para empresas no asociadas conlleva un incremento de 30€. Descuento del 10% a partir de la 2ª inscripción de la misma empresa.</div>
+    <div class="path-note">🎓 <strong>Itinerario completo Agilytics · AIJU:</strong> Curso 1 — Productividad Ejecutiva (4h) → Curso 2 — Automatización sin Código (8h) → <strong>Curso 3 — VibeCoding (8h)</strong>. Precio del itinerario completo: <strong>Socios: 850€ · No socios: 990€.</strong></div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="section">
+    <div class="section-lbl">Contacto e inscripción</div>
+    <div class="section-title">¿Tienes dudas o quieres reservar plaza?</div>
+    <div class="info-extra">
+      <h4>AIJU – Instituto Tecnológico de Producto Infantil y de Ocio</h4>
+      <div class="info-row"><span class="label">📍 Lugar:</span><span>Av. de la Industria 23 · 03440 Ibi (Alicante)</span></div>
+      <div class="info-row"><span class="label">📞 Teléfono:</span><span>+34 96 555 44 75</span></div>
+      <div class="info-row"><span class="label">✉️ Email:</span><span><a href="mailto:formacion@aiju.es" style="color:var(--purple)">formacion@aiju.es</a></span></div>
+      <div class="info-row"><span class="label">🌐 Web:</span><span><a href="https://formacionaiju.es" style="color:var(--purple)" target="_blank">formacionaiju.es</a></span></div>
+      <div class="info-row"><span class="label">⚠️ Aviso:</span><span>Cancelaciones con devolución únicamente si se comunican con al menos 5 días de antelación. AIJU se reserva el derecho a anular o aplazar el curso si no se alcanza el mínimo de inscripciones.</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p><strong>AIJU · Instituto Tecnológico de Producto Infantil y de Ocio</strong> · Formación impartida por <span class="agilytics">Agilytics</span></p>
+  <p style="margin-top:6px">Av. de la Industria 23 · 03440 Ibi (Alicante) · formacion@aiju.es · +34 96 555 44 75</p>
+  <p style="margin-top:6px">Formación parcialmente bonificable por FUNDAE</p>
+</div>
+
+</body>
+</html>
